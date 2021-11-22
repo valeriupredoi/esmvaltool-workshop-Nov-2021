@@ -1,4 +1,4 @@
-# Automatic download of CMIP/obs4MIPS/CORDEX data
+## Automatic download of CMIP/obs4MIPS/CORDEX data
 
 - Running ESMValTool on an HPC close to an ESGF data node, or home on yer mum's laptop;
 - What to do when the user needs data that is not present on the ESGF node or your mum has no data? 
@@ -25,3 +25,28 @@ drs:
 - Performance refinements:
   - Downloading data from the *closest* ESGF node, based on measuring the shortest server response time
   - Automatic detection of data that had already been downloaded, so that next time ESMValTool runs, that data will just be read off disk
+
+## Reusing preprocessed data: first steps towards distributed ESMValTool
+
+To run aa recipe in a semi-distributed way, the commands shown below were used.
+
+- ran on Mistral at DKRZ:
+```
+esmvaltool run recipe_distributed.yml --diagnostics map/tas_dkrz --remove_preproc_dir=False --run_diagnostic=False
+```
+  this resulted in a number of log messages, with the following message indicating the output directory for the preprocessed data:
+```
+2021-11-18 16:22:41,906 UTC [2277] INFO        PREPROCDIR = /pf/b/b381141/esmvaltool_output/recipe_distributed_20211118_162237/preproc
+```
+- ran on Jasmin at CEDA:
+```
+esmvaltool run recipe_distributed.yml --diagnostics map/tas_ceda --remove_preproc_dir=False --run_diagnostic=False
+```
+  this resulted in a number of log messages, with the following message indicating the output directory for the preprocessed data:
+```
+2021-11-18 16:18:27,104 UTC [27364] INFO    PREPROCDIR = /work/scratch-pw/bandela/esmvaltool_output/recipe_distributed_20211118_161821/preproc
+```
+- finally, jointhese two runs together into one single, local, diagnostic run:
+```
+esmvaltool run recipe_distributed.yml --resume_from "~/distributed/recipe_distributed_20211118_161821 ~/distributed/recipe_distributed_20211118_162237"
+```
