@@ -4,5 +4,5 @@ Agenda can be found [here](https://github.com/ESMValGroup/ESMValTool/discussions
 
 ## V's Guff (presentation)
 
-- automatic download of data and reusing preprocessed data
-- mamba 🐍
+- [automatic download](https://github.com/valeriupredoi/esmvaltool-workshop-Nov-2021/blob/main/autodownload.md) of data and reusing preprocessed data
+- [mamba](https://github.com/valeriupredoi/esmvaltool-workshop-Nov-2021/blob/main/mamba.md)
